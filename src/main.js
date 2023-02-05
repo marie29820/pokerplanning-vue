@@ -1,97 +1,35 @@
-import { createApp } from "vue";
-import { createWebHistory, createRouter } from "vue-router";
-
-// styles
+import {createApp} from "vue";
+import {createRouter, createWebHashHistory} from "vue-router";
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@/assets/styles/tailwind.css";
-
-// mouting point for the whole app
+import './plugins/bootstrap-vue'
 
 import App from "@/App.vue";
-
-// layouts
-
-import Admin from "@/layouts/Admin.vue";
-import Auth from "@/layouts/Auth.vue";
-
-// views for Admin layout
-
-import Dashboard from "@/views/admin/Dashboard.vue";
-import Settings from "@/views/admin/Settings.vue";
-import Tables from "@/views/admin/Tables.vue";
-import Maps from "@/views/admin/Maps.vue";
-
-// views for Auth layout
-
-import Login from "@/views/auth/Login.vue";
-import Register from "@/views/auth/Register.vue";
-
-// views without layouts
-
-import Landing from "@/views/Landing.vue";
-import Profile from "@/views/Profile.vue";
-import Index from "@/views/Index.vue";
-
-// routes
+import {createPinia} from "pinia";
+import {routesNames} from '@/config'
+import piniaPersist from 'pinia-plugin-persist'
+import Room from "@/views/Room.vue";
+import Home from "@/views/Home.vue";
 
 const routes = [
   {
-    path: "/admin",
-    redirect: "/admin/dashboard",
-    component: Admin,
-    children: [
-      {
-        path: "/admin/dashboard",
-        component: Dashboard,
-      },
-      {
-        path: "/admin/settings",
-        component: Settings,
-      },
-      {
-        path: "/admin/tables",
-        component: Tables,
-      },
-      {
-        path: "/admin/maps",
-        component: Maps,
-      },
-    ],
-  },
-  {
-    path: "/auth",
-    redirect: "/auth/login",
-    component: Auth,
-    children: [
-      {
-        path: "/auth/login",
-        component: Login,
-      },
-      {
-        path: "/auth/register",
-        component: Register,
-      },
-    ],
-  },
-  {
-    path: "/landing",
-    component: Landing,
-  },
-  {
-    path: "/profile",
-    component: Profile,
-  },
-  {
+    name: routesNames.home,
     path: "/",
-    component: Index,
+    component: Home,
+  }, {
+    name: routesNames.room,
+    path: "/room/:id",
+    component: Room,
   },
-  { path: "/:pathMatch(.*)*", redirect: "/" },
+  {path: "/:pathMatch(.*)*", redirect: "/"},
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory('/'),
   routes,
 });
 
-createApp(App).use(router).mount("#app");
+createApp(App)
+  .use(createPinia().use(piniaPersist))
+  .use(router).mount("#app");

@@ -13,17 +13,28 @@
     "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run build:tailwind && npm run serve"
   },
   "dependencies": {
+    "@stomp/stompjs": "^6.1.2",
+    "@vue/compat": "^3.2.13",
     "@fortawesome/fontawesome-free": "5.15.3",
     "@popperjs/core": "2.9.1",
     "@tailwindcss/forms": "0.2.1",
     "@vue/compiler-sfc": "3.0.7",
+    "bootstrap": "^4.5.2",
+    "bootstrap-vue": "^2.23.1",
     "chart.js": "2.9.4",
     "core-js": "3.9.1",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
     "tailwindcss": "2.0.4",
-    "vue": "3.0.7",
-    "vue-router": "4.0.5"
+    "vue": "^3.2.13",
+    "vue-router": "^4.1.5",
+    "canvas-confetti": "^1.6.0",
+    "mutationobserver-shim": "^0.3.7",
+    "pinia": "^2.0.23",
+    "pinia-plugin-persist": "^1.0.0",
+    "popper.js": "^1.16.1",
+    "portal-vue": "^2.1.7",
+    "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
@@ -35,6 +46,8 @@
     "eslint": "7.22.0",
     "eslint-plugin-vue": "7.7.0",
     "postcss": "8.2.8",
+    "sass": "^1.58.0",
+    "sass-loader": "^13.2.0",
     "vue-template-compiler": "2.6.12"
   },
   "eslintConfig": {
