@@ -11,7 +11,6 @@ import {routesNames} from '@/config'
 import piniaPersist from 'pinia-plugin-persist'
 import Room from "@/views/Room.vue";
 import Home from "@/views/Home.vue";
-
 const routes = [
   {
     name: routesNames.home,

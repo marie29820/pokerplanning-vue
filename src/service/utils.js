@@ -4,5 +4,8 @@ export const utils = {
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
       );
     },
+  regexName(name){
+      return name?.length < 10 &&  name?.length > 2 &&  /^[A-Za-z0-9-@éàèôù]+$/.test(name)
+  }
 };
 

@@ -3,7 +3,7 @@
     <b-form-input
         v-model="user.name"
         @keydown.enter.prevent="enter"
-        placeholder="Enter your name"
+        placeholder="Your name [3-10 characters]"
         :state="nameState"/>
     <b-input-group-append>
       <b-button variant="success" @click="submit()">Play
@@ -14,6 +14,8 @@
 
 <script>
 
+
+import {utils} from "@/service";
 
 export default {
   name: "modal",
@@ -34,7 +36,7 @@ export default {
       }
     },
     validName(){
-      return this.user.name?.length > 2 && this.user.name?.length < 8 && /^[A-Za-z-@]+$/.test(this.user.name)
+      return utils.regexName(this.user.name)
     },
     enter(){
       this.submit()
