@@ -16,7 +16,7 @@ export default {
   methods: {
     copy() {
       navigator.clipboard.writeText(this.url)
-      this.$bvToast.toast("L'url a été copiée dans le presse papier", {
+      this.$bvToast.toast("Copied to the clipboard !", {
         noCloseButton: true,
         autoHideDelay: 5000,
         variant: 'info',

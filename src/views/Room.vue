@@ -141,18 +141,47 @@ export default {
   methods: {
     ...mapActions(messageStore, ['setPlayer', 'setRoom', 'setLoading']),
     makeToast() {
-      this.$bvToast.toast('Moyenne du poker planning : ' + this.averageNote(), {
+      this.$bvToast.toast('Average votes : ' + this.averageNote(), {
         noCloseButton: true,
-        autoHideDelay: 9000,
+        autoHideDelay: 6000,
         variant: 'info',
         solid: true
       })
+      let minmax = this.utmost()
+      if (minmax.length > 0) {
+        const h = this.$createElement
+        const vNodesMsg = h(
+            'p',
+            [
+              'Players ',
+              h('strong', {class: 'mr-2'}, minmax.join(', ')),
+              'should speak up'
+            ]
+        )
+        this.$bvToast.toast([vNodesMsg], {
+          noCloseButton: true,
+          autoHideDelay: 6000,
+          variant: 'warning',
+          solid: true
+        })
+      }
+
     },
     averageNote() {
       let total = this.players.map(p => p.card).filter(c => !isNaN(c) && null !== c)
           .reduce((acc, cur) => acc + parseInt(cur), 0)
-      let vote = this.players.map(p => p.card).filter(c => !isNaN(c) && null !== c).length;
-      return vote > 0 ? (total / vote).toFixed(1) : 0;
+      let votes = this.players.map(p => p.card).filter(c => !isNaN(c) && null !== c).length;
+      return votes > 0 ? (total / votes).toFixed(1) : 0;
+    },
+    utmost() {
+      let votes = this.players.filter(p => !isNaN(p.card) && null !== p.card && !isNaN(parseInt(p.card)))
+      if (votes.length > 2) {
+        let max = votes.reduce((prev, curr) => prev.card > curr.card ? prev : curr)
+        let min = votes.reduce((prev, curr) => prev.card < curr.card ? prev : curr)
+        return [...new Set([min.name, max.name])]
+      }
+      return []
+
     },
     consensus() {
       let card;

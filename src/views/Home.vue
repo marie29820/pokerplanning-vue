@@ -78,8 +78,10 @@ export default {
   methods: {
     ...mapActions(messageStore, ['setPlayer', 'setRoom', 'setLoading']),
     submit() {
-      this.setPlayer({name: this.name, connected: false})
-      this.$router.push({name: routesNames.room, params: {id: utils.uuidv4()}})
+      if (this.nameState) {
+        this.setPlayer({name: this.name, connected: false})
+        this.$router.push({name: routesNames.room, params: {id: utils.uuidv4()}})
+      }
     },
   },
   components: {

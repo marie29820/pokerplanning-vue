@@ -4,13 +4,13 @@
         <b-button v-if="step !== 'REVEAL'"
                   variant="info"
                   @click="reveal"
-        >Montrer les cartes
+        >Show cards
         </b-button>
         <b-button v-else
                   variant="info"
                   @click="reset"
                   :disabled="!resetState"
-        >Recommencer
+        >Restart
         </b-button>
       <b-button
           :disabled="disabledcards"
@@ -32,7 +32,7 @@ import {messageStore} from "@/store";
 export default {
   name: "cards",
   computed: {
-    ...mapState(messageStore, ['room', 'player'])
+    ...mapState(messageStore, ['room', 'player', 'loading'])
   },
   data() {
     return {
@@ -74,6 +74,9 @@ export default {
       this.disabledcards = step === 'REVEAL'
       step === 'REVEAL' ? setTimeout(() => this.resetState = true, 6000) : this.resetState = false
     },
+    loading(loading) {
+      this.disabledcards = loading;
+    }
   },
 };
 </script>
