@@ -4,23 +4,29 @@
       <b-spinner variant="light" class="spinner" label="Text Centered"></b-spinner>
     </div>
     <router-view/>
+    <smi :show="smimodal"/>
   </main>
 </template>
 <script>
 import {mapState} from "pinia";
-import {messageStore} from "@/store";
+import {messageStore, technicalStore} from "@/store";
 import {pokerPlanningApi} from "@/service";
+import Smi from "@/components/smi.vue";
 
 export default {
-  components: {},
+  components: {Smi},
   data() {
     return {
-      loader: false
+      loader: false,
+      smimodal: false
     }
   },
   watch: {
     loading(loading) {
       this.loader = loading;
+    },
+    smi(smi) {
+      this.smimodal = smi;
     }
   },
   created() {
@@ -28,7 +34,8 @@ export default {
     window.addEventListener("beforeunload", this.leaving);
   },
   computed: {
-    ...mapState(messageStore, ['player', 'loading'])
+    ...mapState(messageStore, ['player']),
+    ...mapState(technicalStore, ['loading', 'smi'])
   },
   methods: {
     async leaving() {

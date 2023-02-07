@@ -27,12 +27,13 @@
 </template>
 <script>
 import {mapState} from "pinia";
-import {messageStore} from "@/store";
+import {messageStore, technicalStore} from "@/store";
 
 export default {
   name: "cards",
   computed: {
-    ...mapState(messageStore, ['room', 'player', 'loading'])
+    ...mapState(messageStore, ['room', 'player']),
+    ...mapState(technicalStore, ['loading'])
   },
   data() {
     return {

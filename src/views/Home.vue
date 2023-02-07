@@ -52,9 +52,9 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar.vue";
+import navbar from "@/components/navbar.vue";
 import {mapActions} from "pinia";
-import {messageStore} from "@/store";
+import {messageStore, technicalStore} from "@/store";
 import {routesNames} from "@/config";
 import {pokerPlanningApi, utils} from "@/service";
 
@@ -76,7 +76,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(messageStore, ['setPlayer', 'setRoom', 'setLoading']),
+    ...mapActions(messageStore, ['setPlayer', 'setRoom']),
+    ...mapActions(technicalStore, ['setLoading']),
     submit() {
       if (this.nameState) {
         this.setPlayer({name: this.name, connected: false})
@@ -85,7 +86,7 @@ export default {
     },
   },
   components: {
-    Navbar,
+    navbar,
   },
 };
 </script>

@@ -5,7 +5,6 @@ export const messageStore = defineStore('messages', {
     return {
       room: {},
       player: null,
-      loading: false,
     }
   },
   actions: {
@@ -15,11 +14,27 @@ export const messageStore = defineStore('messages', {
     setRoom(room) {
       this.room = room
     },
-    setLoading(loading) {
-      this.loading = loading
-    },
   },
   persist: {
     enabled: true,
+  },
+})
+export const technicalStore = defineStore('technical', {
+  state: () => {
+    return {
+      smi: false,
+      loading: false,
+    }
+  },
+  actions: {
+    setLoading(loading) {
+      this.loading = loading
+    },
+    setSmi(smi) {
+      this.smi = smi
+    },
+  },
+  persist: {
+    enabled: false,
   },
 })

@@ -78,12 +78,7 @@
           @reveal-card="revealCard"
       />
     </div>
-    <b-modal no-close-on-backdrop
-             no-close-on-esc
-             hide-header-close
-             ref="playermodal" hide-footer hide-header>
-      <modal @add-player="createPlayer"/>
-    </b-modal>
+      <modal @add-player="createPlayer" :show="playermodal"/>
   </section>
 </template>
 
@@ -91,7 +86,7 @@
 
 
 import {mapActions, mapState} from "pinia";
-import {messageStore} from "@/store";
+import {messageStore, technicalStore} from "@/store";
 import {pokerPlanningApi} from "@/service";
 import Explode from "@/components/explode.vue";
 import Invite from "@/components/invite.vue";
@@ -109,11 +104,13 @@ export default {
       user: {id: null, name: null},
       players: [],
       step: 'HIDDEN',
-      explode: false
+      explode: false,
+      playermodal: false
     };
   },
   computed: {
-    ...mapState(messageStore, ['room', 'player', 'loading']),
+    ...mapState(messageStore, ['room', 'player']),
+    ...mapState(technicalStore, ['loading']),
     getplayer() {
       return i => this.players[i]
     },
@@ -132,14 +129,15 @@ export default {
                     this.createPlayer(this.player.name);
                   } else {
                     // - si le joueur rejoint la partie
-                    this.$refs['playermodal'].show()
+                    this.playermodal = true
                   }
                 })
               })
         })
   },
   methods: {
-    ...mapActions(messageStore, ['setPlayer', 'setRoom', 'setLoading']),
+    ...mapActions(messageStore, ['setPlayer', 'setRoom']),
+    ...mapActions(technicalStore, ['setLoading', 'setSmi']),
     makeToast() {
       this.$bvToast.toast('Average votes : ' + this.averageNote(), {
         noCloseButton: true,
@@ -203,7 +201,7 @@ export default {
       pokerPlanningApi.addPlayer(this.$route.params.id, this.user).then(
           () => {
             this.setPlayer({id: this.user.id, name: this.user.name})
-            this.$refs['playermodal'].hide()
+            this.playermodal = false
             this.setLoading(false)
           }
       )
@@ -221,7 +219,6 @@ export default {
   },
   watch: {
     room(room) {
-      console.log(room)
       this.players.length = 0
       this.players.push(...room.players ?? [])
       this.step = room.step

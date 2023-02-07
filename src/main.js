@@ -1,16 +1,15 @@
 import {createApp} from "vue";
 import {createRouter, createWebHashHistory} from "vue-router";
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "@/assets/styles/tailwind.css";
 import './plugins/bootstrap-vue'
-
 import App from "@/App.vue";
 import {createPinia} from "pinia";
 import {routesNames} from '@/config'
 import piniaPersist from 'pinia-plugin-persist'
 import Room from "@/views/Room.vue";
 import Home from "@/views/Home.vue";
+
 const routes = [
   {
     name: routesNames.home,

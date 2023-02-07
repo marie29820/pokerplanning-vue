@@ -20,7 +20,7 @@
               <span style="font-size: 2em"
                     v-if="aPlayer.card !== 'coffee'"><b>{{ aPlayer.card }}</b>
               </span>
-      <img v-else src="/img/icons8-cafe-36.png"/>
+      <img v-else src="/img/icons8-cafe-36.png" alt="icon-cafe"/>
     </b-avatar>
 
   </main>
@@ -36,7 +36,6 @@ export default {
 
   data() {
     return {
-      filename: 'angular.jpg'
     }
   },
 

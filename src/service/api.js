@@ -1,10 +1,10 @@
 import SockJS from "sockjs-client";
 import {Stomp} from "@stomp/stompjs";
-import {messageStore} from "@/store";
+import {messageStore, technicalStore} from "@/store";
 import {utils} from "@/service/utils";
 
-const stomp = "https://api.pokerplanningonline.com/pokerplanning/stomp"
-// const stomp = "http://localhost:8080/pokerplanning/stomp"
+// const stomp = "https://api.pokerplanningonline.com/pokerplanning/stomp"
+const stomp = "http://localhost:8080/pokerplanning/stomp"
 const roomTopic = "/topic/room/"
 let stompClient = null;
 let uuid = utils.uuidv4();
@@ -12,6 +12,7 @@ let uuid = utils.uuidv4();
 export const pokerPlanningApi = {
   connect() {
     return new Promise((resolve, reject) => {
+      const store = technicalStore();
       if (!stompClient || !stompClient.connected) {
         stompClient = Stomp.over(new SockJS(stomp, null, {sessionId: () => uuid}));
         stompClient.reconnect_delay = 2000;
@@ -21,7 +22,7 @@ export const pokerPlanningApi = {
             resolve(uuid)
           },
           error => reject(new Error(error)),
-          () => console.log('ws close')
+          () => store.setSmi(true)
         );
       } else {
         resolve(uuid);
