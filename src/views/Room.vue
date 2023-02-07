@@ -7,31 +7,31 @@
     <div class="h-75 d-flex align-items-center justify-content-center">
       <div class="bg-blueGray-800">
         <div v-if="players.length > 8" class="row">
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(8)" :aPlayer="getplayer(8)" :step="step"/>
+          <div v-if="players[8]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[8]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(10)" :aPlayer="getplayer(10)" :step="step"/>
+          <div v-if="players[10]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[10]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(12)" :aPlayer="getplayer(12)" :step="step"/>
+          <div v-if="players[12]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[12]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(14)" :aPlayer="getplayer(14)" :step="step"/>
+          <div v-if="players[14]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[14]" :step="step"/>
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(0)" :aPlayer="getplayer(0)" :step="step"/>
+          <div v-if="players[0]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[0]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(2)" :aPlayer="getplayer(2)" :step="step"/>
+          <div v-if="players[2]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[2]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(4)" :aPlayer="getplayer(4)" :step="step"/>
+          <div v-if="players[4]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[4]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(6)" :aPlayer="getplayer(6)" :step="step"/>
+          <div v-if="players[6]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[6]" :step="step"/>
           </div>
         </div>
         <div class="row">
@@ -42,31 +42,31 @@
           <div class="col-md-2 mx-auto my-auto"></div>
         </div>
         <div class="row">
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(1)" :aPlayer="getplayer(1)" :step="step"/>
+          <div v-if="players[1]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[1]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(3)" :aPlayer="getplayer(3)" :step="step"/>
+          <div v-if="players[3]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[3]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(5)" :aPlayer="getplayer(5)" :step="step"/>
+          <div v-if="players[5]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[5]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(7)" :aPlayer="getplayer(7)" :step="step"/>
+          <div v-if="players[7]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[7]" :step="step"/>
           </div>
         </div>
         <div v-if="players.length > 9" class="row">
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(9)" :aPlayer="getplayer(9)" :step="step"/>
+          <div v-if="players[9]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[9]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(11)" :aPlayer="getplayer(11)" :step="step"/>
+          <div v-if="players[11]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[11]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(13)" :aPlayer="getplayer(13)" :step="step"/>
+          <div v-if="players[13]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[13]" :step="step"/>
           </div>
-          <div class="col-xs-1 mx-auto">
-            <avatar v-if="getplayer(15)" :aPlayer="getplayer(15)" :step="step"/>
+          <div v-if="players[15]" class="col-xs-1 mx-auto">
+            <avatar :aPlayer="players[15]" :step="step"/>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@
           @reveal-card="revealCard"
       />
     </div>
-      <modal @add-player="createPlayer" :show="playermodal"/>
+    <modal @add-player="createPlayer" :show="playermodal"/>
   </section>
 </template>
 
@@ -111,9 +111,6 @@ export default {
   computed: {
     ...mapState(messageStore, ['room', 'player']),
     ...mapState(technicalStore, ['loading']),
-    getplayer() {
-      return i => this.players[i]
-    },
   },
   mounted() {
     this.setLoading(true)
@@ -136,8 +133,8 @@ export default {
         })
   },
   methods: {
-    ...mapActions(messageStore, ['setPlayer', 'setRoom']),
-    ...mapActions(technicalStore, ['setLoading', 'setSmi']),
+    ...mapActions(messageStore, ['setPlayer']),
+    ...mapActions(technicalStore, ['setLoading']),
     makeToast() {
       this.$bvToast.toast('Average votes : ' + this.averageNote(), {
         noCloseButton: true,
@@ -172,14 +169,20 @@ export default {
       return votes > 0 ? (total / votes).toFixed(1) : 0;
     },
     utmost() {
+      let array = [];
       let votes = this.players.filter(p => !isNaN(p.card) && null !== p.card && !isNaN(parseInt(p.card)))
       if (votes.length > 2) {
+        let average = this.averageNote()
         let max = votes.reduce((prev, curr) => prev.card > curr.card ? prev : curr)
         let min = votes.reduce((prev, curr) => prev.card < curr.card ? prev : curr)
-        return [...new Set([min.name, max.name])]
+        if (parseInt(min.car) - 2 < average) {
+          array.push(min)
+        }
+        if (parseInt(max.car) + 2 > average) {
+          array.push(min)
+        }
       }
-      return []
-
+      return [...new Set(array)]
     },
     consensus() {
       let card;

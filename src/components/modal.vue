@@ -7,7 +7,7 @@
     <b-input-group>
       <b-form-input
           v-model="user.name"
-          @keydown.enter.prevent="enter"
+          @keydown.enter.prevent="submit()"
           placeholder="Your name [3-10 characters]"
           :state="nameState"/>
       <b-input-group-append>
@@ -51,9 +51,6 @@ export default {
     validName() {
       return utils.regexName(this.user.name)
     },
-    enter() {
-      this.submit()
-    }
   }
 }
 </script>

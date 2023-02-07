@@ -10,7 +10,7 @@
     <p class="my-2">Try again later</p>
     <b-button v-b-modal.modal-footer-sm
               class="float-right"
-              @click="retry">Retry
+              @click="location.reload()">Retry
     </b-button>
   </b-modal>
 </template>
@@ -28,11 +28,6 @@ export default {
       }
     }
   },
-  methods: {
-    retry() {
-      location.reload()
-    }
-  }
 }
 </script>
 

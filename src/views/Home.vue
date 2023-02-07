@@ -54,7 +54,7 @@
 <script>
 import navbar from "@/components/navbar.vue";
 import {mapActions} from "pinia";
-import {messageStore, technicalStore} from "@/store";
+import {messageStore} from "@/store";
 import {routesNames} from "@/config";
 import {pokerPlanningApi, utils} from "@/service";
 
@@ -76,8 +76,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(messageStore, ['setPlayer', 'setRoom']),
-    ...mapActions(technicalStore, ['setLoading']),
+    ...mapActions(messageStore, ['setPlayer']),
     submit() {
       if (this.nameState) {
         this.setPlayer({name: this.name, connected: false})

@@ -1,26 +1,27 @@
 <template>
   <main>
-    <b-avatar
-        :id="`avatar-${aPlayer.id}`"
-        v-if="step === 'HIDDEN'"
-        :badge="aPlayer.name"
-        badge-top
-        badge-offset="-0.7em"
-        :badge-variant="getAvatarStyle(aPlayer)"
-        size="4rem"
+    <b-avatar v-if="step === 'HIDDEN'"
+              :id="`avatar-${aPlayer.id}`"
+              :badge="aPlayer.name"
+              variant="primary"
+              badge-top
+              badge-offset="-0.7em"
+              :badge-variant="avatarStyle()"
+              size="3rem"
     />
-    <b-avatar
-        :id="`avatar-${aPlayer.id}`"
-        v-if="step === 'REVEAL'"
-        :badge="aPlayer.name"
-        badge-top
-        badge-offset="-0.7em"
-        :badge-variant="getAvatarStyle(aPlayer)"
-        size="4rem">
-              <span style="font-size: 2em"
-                    v-if="aPlayer.card !== 'coffee'"><b>{{ aPlayer.card }}</b>
-              </span>
-      <img v-else src="/img/icons8-cafe-36.png" alt="icon-cafe"/>
+    <b-avatar v-if="step === 'REVEAL'"
+              :id="`avatar-${aPlayer.id}`"
+              :badge="aPlayer.name"
+              variant="primary"
+              badge-top
+              badge-offset="-0.7em"
+              :badge-variant="avatarStyle()"
+              size="3rem">
+      <img v-if="aPlayer.card !== 'coffee'" src="/img/icons8-cafe-36.png" alt="icon-cafe"/>
+      <span v-else
+            style="font-size: 2em">
+        <b>{{ aPlayer.card }}</b>
+      </span>
     </b-avatar>
 
   </main>
@@ -35,21 +36,19 @@ export default {
   props: ['step', 'aPlayer'],
 
   data() {
-    return {
-    }
+    return {}
   },
 
   computed: {
     ...mapState(messageStore, ['player']),
   },
   methods: {
-    getAvatarStyle(aPlayer) {
-      return aPlayer.card ? "success" : "danger"
+    avatarStyle() {
+      return this.aPlayer.card ? "success" : "danger"
     },
   }
 }
 </script>
 
 <style scoped>
-
 </style>
