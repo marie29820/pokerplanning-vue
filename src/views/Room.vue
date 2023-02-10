@@ -142,62 +142,21 @@ export default {
         variant: 'info',
         solid: true
       })
-      let minmax = this.utmost()
-      if (minmax.length > 0) {
-        const h = this.$createElement
-        const vNodesMsg = h(
-            'p',
-            [
-              'Players ',
-              h('strong', {class: 'mr-2'}, minmax.join(', ')),
-              'should speak up'
-            ]
-        )
-        this.$bvToast.toast([vNodesMsg], {
-          noCloseButton: true,
-          autoHideDelay: 6000,
-          variant: 'warning',
-          solid: true
-        })
-      }
-
+    },
+    getUsefullCards(){
+     return Object.values(this.players)
+          .filter(p => !isNaN(p.card) && p.card !== null)
+          .map(p => parseInt(p.card));
     },
     averageNote() {
-      let total = this.players.map(p => p.card).filter(c => !isNaN(c) && null !== c)
-          .reduce((acc, cur) => acc + parseInt(cur), 0)
-      let votes = this.players.map(p => p.card).filter(c => !isNaN(c) && null !== c).length;
-      return votes > 0 ? (total / votes).toFixed(1) : 0;
-    },
-    utmost() {
-      let array = [];
-      let votes = this.players.filter(p => !isNaN(p.card) && null !== p.card && !isNaN(parseInt(p.card)))
-      if (votes.length > 2) {
-        let average = this.averageNote()
-        let max = votes.reduce((prev, curr) => prev.card > curr.card ? prev : curr)
-        let min = votes.reduce((prev, curr) => prev.card < curr.card ? prev : curr)
-        if (parseInt(min.car) - 2 < average) {
-          array.push(min)
-        }
-        if (parseInt(max.car) + 2 > average) {
-          array.push(min)
-        }
-      }
-      return [...new Set(array)]
+      const selectedCards = this.getUsefullCards();
+      return selectedCards.length > 0
+          ? (selectedCards.reduce((acc, cur) => acc + cur, 0) / selectedCards.length).toFixed(1)
+          : 0;
     },
     consensus() {
-      let card;
-      for (let p in this.players) {
-        if (!isNaN(this.players[p].card) && null !== this.players[p].card) {
-          if (!card) {
-            card = this.players[p].card
-          } else if (card !== this.players[p].card) {
-            return false;
-          }
-        } else {
-          return false;
-        }
-      }
-      return true
+      const selectedCards  = this.getUsefullCards();
+      return selectedCards.length > 0 && selectedCards.every(c => c === selectedCards[0]);
     },
     createPlayer(name) {
       this.user.name = name

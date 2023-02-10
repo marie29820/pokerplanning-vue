@@ -35,11 +35,7 @@ export default {
   },
   watch:{
     show(show){
-      if(show){
-        this.$refs['playermodal'].show()
-      } else {
-        this.$refs['playermodal'].hide()
-      }
+      this.$refs['playermodal'][show ? 'show' : 'hide']();
     }
   },
   methods: {

@@ -17,7 +17,7 @@
               badge-offset="-0.7em"
               :badge-variant="avatarStyle()"
               size="3rem">
-      <img v-if="aPlayer.card !== 'coffee'" src="/img/icons8-cafe-36.png" alt="icon-cafe"/>
+      <img v-if="aPlayer.card === 'coffee'" src="/img/icons8-cafe-36.png" alt="icon-cafe"/>
       <span v-else
             style="font-size: 2em">
         <b>{{ aPlayer.card }}</b>

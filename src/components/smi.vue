@@ -10,7 +10,7 @@
     <p class="my-2">Try again later</p>
     <b-button v-b-modal.modal-footer-sm
               class="float-right"
-              @click="location.reload()">Retry
+              @click="reload()">Retry
     </b-button>
   </b-modal>
 </template>
@@ -19,6 +19,11 @@
 export default {
   name: "smi",
   props: ['show'],
+  methods: {
+    reload() {
+      window.location.reload()
+    }
+  },
   watch: {
     show(show) {
       if (show) {

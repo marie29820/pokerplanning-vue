@@ -11,7 +11,7 @@
                 <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
                   <div class="text-blueGray-400 text-center font-bold">
                     <div class="row justify-content-center">
-                      <div class="col-lg-3 order-lg-2">
+                      <div class="col-4">
                         <div class="card-profile-image">
                           <img src="/img/launch.svg" alt="launch" class="launcher">
                         </div>

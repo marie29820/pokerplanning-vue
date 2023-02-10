@@ -39,7 +39,7 @@ export default {
 
 <style scoped>
 #canvas-container {
-  font-family: "Arial";
+  font-family: "Arial",serif;
   font-size: 4em;
   text-align: center;
   white-space: nowrap;
